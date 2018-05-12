@@ -36,7 +36,7 @@ public class MessageSender {
             jmsTemplate.convertAndSend(message.getQueueName(), message.getBody());
         else
             jmsTemplate.convertAndSend(message.getQueueName(), message.getBody(), correlationIdProcessor);
-
-
     }
+
+
 }
