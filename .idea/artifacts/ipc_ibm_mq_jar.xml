@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact name="ipc-ibm-mq:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ipc_ibm_mq_jar</output-path>
+    <root id="root">
+      <element id="archive" name="ipc-ibm-mq.jar">
+        <element id="module-output" name="ipc-ibm-mq" />
+      </element>
+      <element id="library" level="project" name="Maven: org.springframework:spring-core:5.0.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-jms:5.0.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.0.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.57" />
+      <element id="library" level="project" name="Maven: org.jetbrains:annotations:16.0.1" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.5" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.0.5.RELEASE" />
+      <element id="library" level="project" name="Maven: javax.jms:javax.jms-api:2.0.1" />
+      <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.0" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.5" />
+      <element id="library" level="project" name="Maven: com.potentii.ipc:ipc-bridge:0.0.1-SNAPSHOT" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.0.5.RELEASE" />
+      <element id="library" level="project" name="Maven: com.ibm.mq:com.ibm.mq.allclient:9.0.4.0" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+      <element id="library" level="project" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.57" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-messaging:5.0.5.RELEASE" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Class-Path: spring-core-5.0.5.RELEASE.jar spring-jms-5.0.5.RELEASE.jar
+  spring-tx-5.0.5.RELEASE.jar bcprov-jdk15on-1.57.jar annotations-16.0
+ .1.jar jackson-core-2.9.5.jar spring-beans-5.0.5.RELEASE.jar javax.jm
+ s-api-2.0.1.jar lombok-1.16.0.jar jackson-databind-2.9.5.jar ipc-brid
+ ge-0.0.1-SNAPSHOT.jar spring-jcl-5.0.5.RELEASE.jar com.ibm.mq.allclie
+ nt-9.0.4.0.jar jackson-annotations-2.9.0.jar bcpkix-jdk15on-1.57.jar 
+ spring-messaging-5.0.5.RELEASE.jar
+Main-Class: com.potentii.ipcibmmq.Main
+
