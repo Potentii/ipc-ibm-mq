@@ -15,12 +15,12 @@
       <element id="library" level="project" name="Maven: javax.jms:javax.jms-api:2.0.1" />
       <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.0" />
       <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.5" />
-      <element id="library" level="project" name="Maven: com.potentii.ipc:ipc-bridge:0.0.1-SNAPSHOT" />
       <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.0.5.RELEASE" />
       <element id="library" level="project" name="Maven: com.ibm.mq:com.ibm.mq.allclient:9.0.4.0" />
       <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
       <element id="library" level="project" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.57" />
       <element id="library" level="project" name="Maven: org.springframework:spring-messaging:5.0.5.RELEASE" />
+      <element id="library" level="project" name="Maven: com.potentii.ipc:ipc-bridge:0.0.2-SNAPSHOT" />
     </root>
   </artifact>
 </component>

@@ -21,4 +21,10 @@ public class Connection implements Serializable {
     @Getter
     @Setter
     private String queueManager;
+    @Getter
+    @Setter
+    private String username;
+    @Getter
+    @Setter
+    private String password;
 }

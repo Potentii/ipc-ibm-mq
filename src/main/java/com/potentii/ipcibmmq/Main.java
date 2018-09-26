@@ -5,13 +5,16 @@ import com.potentii.ipcibmmq.operation.Connection;
 import com.potentii.ipcibmmq.operation.ListQueuesOperation;
 import com.potentii.ipcibmmq.operation.Message;
 import com.potentii.ipcibmmq.operation.SendMessageOperation;
+import org.springframework.jms.JmsException;
 
+import javax.jms.JMSException;
+import java.io.IOException;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
-        IPCWorker worker = new IPCWorker(System.in, System.out);
+        IPCWorker worker = new IPCWorker(System.in, System.out, IPCWorker.Charset.UTF8);
 
         worker.listen((req, res) -> {
             String operation = req.queryString("operation");
@@ -30,8 +33,10 @@ public class Main {
                             throw new Exception("The \"message\" information must be set");
 
                         new MessageSender().send(connection, message);
-                    } catch (Exception e) {
-                        res.error(e);
+                    } catch(JmsException e){
+                        res.error(getCleanCause(e));
+                    } catch(Exception e){
+                        res.error(cleanError(e));
                     }
                     break;
                 }
@@ -49,15 +54,17 @@ public class Main {
 
                         res.json(queueNames);
 
-                    } catch (Exception e) {
-                        res.error(e);
+                    } catch(JmsException e){
+                        res.error(getCleanCause(e));
+                    } catch(Exception e){
+                        res.error(cleanError(e));
                     }
                     break;
                 }
 
 
                 default: {
-                    res.error(new Exception("Invalid operation \"" + operation + "\""));
+                    res.error(new UnsupportedOperationException("Invalid operation \"" + operation + "\""));
                     break;
                 }
 
@@ -65,6 +72,31 @@ public class Main {
             }
 
         });
+    }
+
+
+    private static Throwable cleanError(Throwable originalThrowable){
+        originalThrowable.setStackTrace(new StackTraceElement[]{});
+        return originalThrowable;
+    }
+
+    private static Throwable cleanError(JMSException originalThrowable){
+
+        originalThrowable.setStackTrace(new StackTraceElement[]{});
+        originalThrowable.setLinkedException(null);
+        return originalThrowable;
+    }
+
+    private static Throwable getCleanCause(Throwable originalThrowable){
+        Throwable t = (originalThrowable.getCause() == null)
+                ? originalThrowable
+                : originalThrowable.getCause();
+
+        if(t instanceof JMSException){
+           return cleanError((JMSException) t);
+        } else{
+            return cleanError(t);
+        }
     }
 
 }
