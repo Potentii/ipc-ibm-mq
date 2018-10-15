@@ -1,15 +1,20 @@
 package com.potentii.ipcibmmq;
 
+import com.ibm.mq.MQException;
 import com.potentii.ipc.worker.api.IPCWorker;
 import com.potentii.ipcibmmq.operation.Connection;
 import com.potentii.ipcibmmq.operation.ListQueuesOperation;
 import com.potentii.ipcibmmq.operation.Message;
 import com.potentii.ipcibmmq.operation.SendMessageOperation;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.jms.JmsException;
-
 import javax.jms.JMSException;
 import java.io.IOException;
 import java.util.List;
+
+
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -80,22 +85,47 @@ public class Main {
         return originalThrowable;
     }
 
-    private static Throwable cleanError(JMSException originalThrowable){
-
-        originalThrowable.setStackTrace(new StackTraceElement[]{});
-        originalThrowable.setLinkedException(null);
-        return originalThrowable;
-    }
 
     private static Throwable getCleanCause(Throwable originalThrowable){
         Throwable t = (originalThrowable.getCause() == null)
                 ? originalThrowable
                 : originalThrowable.getCause();
-
         if(t instanceof JMSException){
-           return cleanError((JMSException) t);
+            JMSException e = (JMSException) t;
+            IPCMQException ipcmqException = new IPCMQException(e.getMessage());
+            ipcmqException.setErrorCode(e.getErrorCode());
+            if(e.getCause() instanceof  MQException){
+                MQException mqException = (MQException) e.getCause();
+                ipcmqException.setReasonCode(String.valueOf(mqException.reasonCode));
+                ipcmqException.setDetailedMessage(mqException.getMessage());
+            }
+            return ipcmqException;
+        } else if(t instanceof MQException){
+            MQException e = (MQException) t;
+            IPCMQException ipcmqException = new IPCMQException(e.getMessage());
+            ipcmqException.setErrorCode(e.getErrorCode());
+            ipcmqException.setReasonCode(String.valueOf(e.reasonCode));
+            ipcmqException.setDetailedMessage(e.getMessage());
+            return ipcmqException;
         } else{
             return cleanError(t);
+        }
+    }
+
+
+    @NoArgsConstructor
+    public static class IPCMQException extends Exception{
+        @Getter
+        @Setter
+        private String errorCode;
+        @Getter
+        @Setter
+        private String reasonCode;
+        @Getter
+        @Setter
+        private String detailedMessage;
+        public IPCMQException(String message){
+            super(message);
         }
     }
 
